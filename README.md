@@ -2,26 +2,13 @@
 
 Professional Room Card for Home Assistant.
 
-Developed by Tech@Home.
-
 ## Current Version
-
 v2.0.1 Production
 
-## Compatibility
+## Project Goals
+- Stability
+- Performance
+- Professional deployments
+- Long-term maintainability
 
-Home Assistant 2026+
-
-## Features
-
-- Premium Room Card
-- Temperature
-- Quick Controls
-- Cover Position
-- Navigation
-- Lovelace Editor
-- Optimized for professional installations
-
-## Roadmap
-
-See docs/ROADMAP.md
+See the docs folder for architecture and roadmap.
