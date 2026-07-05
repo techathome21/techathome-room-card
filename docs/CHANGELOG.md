@@ -4,6 +4,19 @@ All notable changes to this project are documented in this file.
 
 The project follows Semantic Versioning (SemVer).
 
+
+---
+
+## [v2.1.0] - Production
+
+### Added
+- Added double-tap action on the Room Card.
+- Double-tap turns off the room's main entity.
+
+### Changed
+- No visual changes.
+- Full backward compatibility maintained.
+
 ---
 
 ## [v2.0.1] - Production
@@ -23,17 +36,7 @@ The project follows Semantic Versioning (SemVer).
 - Established the Tech@Home Lean Engineering project structure.
 - Repository prepared for long-term development.
 
----
 
-## [v2.1.0] - Production
-
-### Added
-- Added double-tap action on the Room Card.
-- Double-tap turns off the room's main entity.
-
-### Changed
-- No visual changes.
-- Full backward compatibility maintained.
 
 ### Changed
 
