@@ -1,6 +1,14 @@
 # Tech@Home Room Card
 
-Professional Room Card for Home Assistant.
+
+![Status](https://img.shields.io/badge/status-Production-green)
+
+![Version](https://img.shields.io/badge/version-v2.0.1-blue)
+
+![Home Assistant](https://img.shields.io/badge/Home%20Assistant-2026+-41BDF5)
+
+Professional Room Card for Home Assistant developed by Tech@Home.
+
 
 ## Current Version
 v2.0.1 Production
