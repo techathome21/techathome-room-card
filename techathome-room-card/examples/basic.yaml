@@ -1,4 +1,0 @@
-type: custom:techathome-room-card
-name: Sala
-entity: light.sala
-temperature_entity: sensor.sala_temperature
