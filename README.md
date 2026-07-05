@@ -126,3 +126,10 @@ README.md
 ---
 
 Developed by **Tech@Home – Automação Residencial**
+
+
+## License
+
+Private repository.
+
+Copyright © Tech@Home – Automação Residencial.
