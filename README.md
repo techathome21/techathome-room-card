@@ -8,7 +8,7 @@
 
 ![Status](https://img.shields.io/badge/status-Production-green)
 
-![Version](https://img.shields.io/badge/version-v2.0.1-blue)
+![Version](https://img.shields.io/badge/version-v2.1.0-blue)
 
 ![Home Assistant](https://img.shields.io/badge/Home%20Assistant-2026+-41BDF5)
 
@@ -112,7 +112,7 @@ README.md
 
 ## Current Version
 
-**v2.0.1 Production**
+**v2.1.0 Production**
 
 ---
 
