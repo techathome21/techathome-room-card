@@ -42,6 +42,13 @@ The Tech@Home Room Card is a premium Lovelace card designed for professional Hom
 | Browser | Chrome, Edge, Firefox |
 | Mobile App | Android / iOS |
 
+
+---
+
+## Screenshots
+
+![Overview](screenshots/screenshot.png)
+
 ---
 
 ## Installation
