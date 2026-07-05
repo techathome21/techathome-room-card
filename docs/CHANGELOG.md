@@ -25,15 +25,15 @@ The project follows Semantic Versioning (SemVer).
 
 ---
 
-## Future Releases
-
-Future versions will be documented using the same structure.
-
-Example:
-
-## [v2.1.0]
+## [v2.1.0] - Production
 
 ### Added
+- Added double-tap action on the Room Card.
+- Double-tap turns off the room's main entity.
+
+### Changed
+- No visual changes.
+- Full backward compatibility maintained.
 
 ### Changed
 
