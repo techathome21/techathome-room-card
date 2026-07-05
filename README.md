@@ -1,11 +1,10 @@
 <p align="left">
   <img src="assets/logo.png" width="320">
 </p>
+
 # Tech@Home Room Card
 
-<p>
-  
-</p>
+
 
 ![Status](https://img.shields.io/badge/status-Production-green)
 
