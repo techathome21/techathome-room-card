@@ -49,6 +49,8 @@ The Tech@Home Room Card is a premium Lovelace card designed for professional Hom
 
 ![Overview](screenshots/screenshot.png)
 
+![Overview](screenshots/screenshot2.png)
+
 ---
 
 ## Installation
