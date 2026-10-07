@@ -7,6 +7,19 @@ The project follows Semantic Versioning (SemVer).
 
 ---
 
+## [v2.2.0-lab.5] - LAB Pre-release
+
+### Fixed
+- Removed entities-only overrides for the outer card background position and shadow.
+- Removed entities-only overrides for outer padding, grid, and state positioning.
+- Both control types now share the exact same outer-card CSS; only the right-side controls renderer changes.
+
+### Preserved
+- The native Home Assistant entities card and the original compact internal `card_mod` styling remain unchanged.
+- The buttons renderer remains unchanged.
+
+---
+
 ## [v2.2.0-lab.4] - LAB Pre-release
 
 ### Changed

@@ -1,6 +1,6 @@
 /*
  * Tech@Home Room Card
- * Version: 2.2.0-lab.4
+ * Version: 2.2.0-lab.5
  * Status : LAB Pre-release
  *
  * Notes:
@@ -147,13 +147,6 @@ class TechAtHomeRoomCard extends HTMLElement {
           z-index: 1;
         }
 
-        ha-card.entities-mode {
-          background-position: bottom right;
-          box-shadow:
-            inset 0px 0px 100px 30px black,
-            rgba(0,0,0,0.35) 0px 5px 15px;
-        }
-
         .content {
           position: relative;
           z-index: 2;
@@ -167,17 +160,6 @@ class TechAtHomeRoomCard extends HTMLElement {
             "icon buttons";
           grid-template-columns: 1fr min-content;
           grid-template-rows: min-content min-content 1fr;
-        }
-
-        ha-card.entities-mode .content {
-          padding: 15px 22px;
-          grid-template-areas:
-            "name name name buttons"
-            "state state state buttons"
-            ". . . buttons"
-            ". . . buttons";
-          grid-template-columns: 1fr min-content min-content 1fr;
-          grid-template-rows: 1fr 1fr 1fr 6fr;
         }
 
         .name {
@@ -203,11 +185,6 @@ class TechAtHomeRoomCard extends HTMLElement {
           text-shadow: 1px 1px 1px black;
           margin-top: 2px;
           line-height: 1.05;
-        }
-
-        ha-card.entities-mode .state {
-          min-height: 0;
-          margin-top: 0;
         }
 
         .covers {
@@ -251,12 +228,12 @@ class TechAtHomeRoomCard extends HTMLElement {
         }
 
         .buttons.entities {
-          width: 100%;
+          width: min(210px, 56vw);
           height: auto;
           padding: 0;
           gap: 0;
           align-self: center;
-          justify-self: stretch;
+          justify-self: end;
           box-sizing: border-box;
           border: 0;
           background: transparent;
@@ -432,9 +409,7 @@ class TechAtHomeRoomCard extends HTMLElement {
   _updateControls(config, hass) {
     const controlsType = config.controls_type === "entities" ? "entities" : "buttons";
     const controlsContainer = this.shadowRoot.querySelector(".buttons");
-    const card = this.shadowRoot.querySelector("ha-card");
 
-    card.classList.toggle("entities-mode", controlsType === "entities");
     controlsContainer.classList.toggle("entities", controlsType === "entities");
 
     if (controlsType === "entities") {
