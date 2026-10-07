@@ -6,7 +6,7 @@ temperature_entity: sensor.temperatura_corredores
 background: /local/images/corredores.jpg
 navigation_path: corredores
 
-# LAB v2.2.0-lab.2: embeds a native HA entities card.
+# LAB v2.2.0-lab.3: embeds a native HA entities card.
 # Omit this property to retain the original buttons mode.
 controls_type: entities
 

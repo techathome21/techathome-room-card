@@ -7,6 +7,14 @@ The project follows Semantic Versioning (SemVer).
 
 ---
 
+## [v2.2.0-lab.3] - LAB Pre-release
+
+### Changed
+- Reduced the room-card inner shadow opacity from `0.82` to `0.52` for a lighter background treatment.
+- Kept the external shadow unchanged at `rgba(0,0,0,0.35) 0px 5px 15px`.
+
+---
+
 ## [v2.2.0-lab.2] - LAB Pre-release
 
 ### Changed

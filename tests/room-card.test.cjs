@@ -1,4 +1,5 @@
 const assert = require("node:assert/strict");
+const fs = require("node:fs");
 const path = require("node:path");
 const test = require("node:test");
 
@@ -109,10 +110,16 @@ global.window = {
   }
 };
 
-require(path.resolve(__dirname, "..", "techathome-room-card.js"));
+const sourcePath = path.resolve(__dirname, "..", "techathome-room-card.js");
+const source = fs.readFileSync(sourcePath, "utf8");
+require(sourcePath);
 
 const RoomCard = registry.get("techathome-room-card");
 const RoomCardEditor = registry.get("techathome-room-card-editor");
+
+test("LAB card uses the approved lighter room shadow", () => {
+  assert.match(source, /inset 0px 0px 100px 50px rgba\(0,0,0,0\.52\),\s+rgba\(0,0,0,0\.35\) 0px 5px 15px;/);
+});
 
 function createHass() {
   const calls = [];

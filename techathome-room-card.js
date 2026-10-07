@@ -1,6 +1,6 @@
 /*
  * Tech@Home Room Card
- * Version: 2.2.0-lab.2
+ * Version: 2.2.0-lab.3
  * Status : LAB Pre-release
  *
  * Notes:
@@ -131,7 +131,7 @@ class TechAtHomeRoomCard extends HTMLElement {
           background-size: cover;
           background-position: center;
           box-shadow:
-            inset 0px 0px 100px 50px rgba(0,0,0,0.82),
+            inset 0px 0px 100px 50px rgba(0,0,0,0.52),
             rgba(0,0,0,0.35) 0px 5px 15px;
           cursor: pointer;
         }

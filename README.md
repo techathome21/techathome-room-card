@@ -8,7 +8,7 @@
 
 ![Status](https://img.shields.io/badge/status-LAB-orange)
 
-![Version](https://img.shields.io/badge/version-v2.2.0--lab.2-orange)
+![Version](https://img.shields.io/badge/version-v2.2.0--lab.3-orange)
 
 ![Home Assistant](https://img.shields.io/badge/Home%20Assistant-2026+-41BDF5)
 
@@ -150,7 +150,7 @@ README.md
 
 ## Current Version
 
-**v2.2.0-lab.2 Pre-release / LAB**
+**v2.2.0-lab.3 Pre-release / LAB**
 
 ---
 
