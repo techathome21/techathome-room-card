@@ -7,6 +7,23 @@ The project follows Semantic Versioning (SemVer).
 
 ---
 
+## [v2.2.0-lab.1] - LAB Pre-release
+
+### Added
+- Added optional `controls_type` with `buttons` and `entities` modes.
+- Added an entities panel for up to four `light`, `switch`, and `input_boolean` controls.
+- Added a visual-editor selector for the control type.
+- Added isolated regression tests and a LAB YAML example.
+
+### Changed
+- LAB branch version identifier only; no production release or merge.
+
+### Compatibility
+- Omitting `controls_type` remains identical to `controls_type: buttons`.
+- The existing buttons renderer, covers, navigation, and room double-tap action are preserved.
+
+---
+
 ## [v2.1.0] - Production
 
 ### Added
