@@ -7,6 +7,23 @@ The project follows Semantic Versioning (SemVer).
 
 ---
 
+## [v2.2.0] - 2026-10-07 - Production
+
+### Added
+- Added `controls_type` with `buttons` and `entities` modes.
+- Added a native Home Assistant entities card for up to four `light`, `switch`, and `input_boolean` controls.
+- Added the `Tipo de controlos` selector to the visual editor.
+
+### Compatibility
+- Omitting `controls_type` remains identical to `controls_type: buttons` and preserves the v2.1.0 renderer.
+- Covers, navigation, room double-tap, background, title positioning, and existing YAML remain compatible.
+
+### Validated
+- Promoted the approved `2.2.0-lab.6` candidate without additional visual or behavioral changes.
+- Automated syntax and interaction regression suite passed before release.
+
+---
+
 ## [v2.2.0-lab.6] - LAB Pre-release
 
 ### Fixed

@@ -1,7 +1,7 @@
 /*
  * Tech@Home Room Card
- * Version: 2.2.0-lab.6
- * Status : LAB Pre-release
+ * Version: 2.2.0
+ * Status : Production
  *
  * Notes:
  * - Visual appearance intentionally preserved from the original card.

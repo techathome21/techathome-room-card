@@ -6,9 +6,9 @@
 
 
 
-![Status](https://img.shields.io/badge/status-LAB-orange)
+![Status](https://img.shields.io/badge/status-Production-green)
 
-![Version](https://img.shields.io/badge/version-v2.2.0--lab.6-orange)
+![Version](https://img.shields.io/badge/version-v2.2.0-blue)
 
 ![Home Assistant](https://img.shields.io/badge/Home%20Assistant-2026+-41BDF5)
 
@@ -97,7 +97,7 @@ covers:
 `controls_type` is optional. When omitted, the card uses the original quick-button
 mode with the same appearance and behaviour as v2.1.0.
 
-### LAB entities mode
+### Entities mode
 
 ```yaml
 type: custom:techathome-room-card
@@ -145,12 +145,13 @@ README.md
 |------|-------------|
 | docs/ARCHITECTURE.md | Internal architecture and design decisions |
 | docs/CHANGELOG.md | Version history |
+| docs/RELEASE_TESTING.md | Release acceptance checks |
 
 ---
 
 ## Current Version
 
-**v2.2.0-lab.6 Pre-release / LAB**
+**v2.2.0 Production**
 
 ---
 

@@ -140,7 +140,7 @@ The Room Card currently supports:
 
 User interaction is intentionally simple and predictable.
 
-The LAB branch adds two control renderers selected by `controls_type`:
+Version 2.2.0 adds two control renderers selected by `controls_type`:
 
 - `buttons` (default): the unchanged v2.1.0 quick-control renderer.
 - `entities`: a native Home Assistant `entities` card that reuses `controls` for up

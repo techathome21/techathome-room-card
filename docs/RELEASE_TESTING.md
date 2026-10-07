@@ -1,24 +1,23 @@
-# LAB test plan: entities controls
+# Release test plan: entities controls
 
-Target branch: `lab/entities-controls`  
-Candidate version: `2.2.0-lab.6`
+Target branch: `main`
+Release version: `2.2.0`
 
-## Install in LAB
+## Install in staging
 
-1. Copy `techathome-room-card.js` from the LAB branch to the LAB Home Assistant
+1. Copy `techathome-room-card.js` from the release to the staging Home Assistant
    `/config/www/` directory.
 2. Register or update the Lovelace resource to use
-   `/local/techathome-room-card.js?v=2.2.0-lab.6` as a JavaScript module.
+   `/local/techathome-room-card.js?v=2.2.0` as a JavaScript module.
 3. Reload the dashboard in a fresh browser tab. If the old source remains visible,
-   clear only the LAB dashboard/app cache and reload.
-4. Add the configuration from `examples/entities-controls-lab.yaml`, replacing the
-   example entity IDs with entities available in LAB.
+   clear the staging dashboard/app cache and reload.
+4. Add the configuration from `examples/entities-controls.yaml`, replacing the
+   example entity IDs with entities available in staging.
 
-`card-mod` must be installed in LAB to reproduce the compact appearance of the
+`card-mod` must be installed to reproduce the compact appearance of the
 original manual entities card.
 
-Do not deploy this candidate over a production resource path. No Home Assistant
-restart should be required for a frontend-only resource update.
+No Home Assistant restart should be required for a frontend-only resource update.
 
 ## Acceptance checks
 

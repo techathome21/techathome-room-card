@@ -117,7 +117,11 @@ require(sourcePath);
 const RoomCard = registry.get("techathome-room-card");
 const RoomCardEditor = registry.get("techathome-room-card-editor");
 
-test("LAB card uses the approved lighter room shadow", () => {
+test("source is identified as the v2.2.0 production release", () => {
+  assert.match(source, /Version: 2\.2\.0\s+\* Status : Production/);
+});
+
+test("production card uses the approved lighter room shadow", () => {
   assert.match(source, /inset 0px 0px 100px 50px rgba\(0,0,0,0\.52\),\s+rgba\(0,0,0,0\.35\) 0px 5px 15px;/);
 });
 
