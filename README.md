@@ -6,9 +6,9 @@
 
 
 
-![Status](https://img.shields.io/badge/status-Production-green)
+![Status](https://img.shields.io/badge/status-LAB-orange)
 
-![Version](https://img.shields.io/badge/version-v2.1.0-blue)
+![Version](https://img.shields.io/badge/version-v2.2.0--lab.6-orange)
 
 ![Home Assistant](https://img.shields.io/badge/Home%20Assistant-2026+-41BDF5)
 
@@ -27,6 +27,7 @@ The Tech@Home Room Card is a premium Lovelace card designed for professional Hom
 - Background image support
 - Temperature display
 - Quick control buttons
+- Optional entities control panel
 - Cover position indicators
 - Room navigation
 - Visual Lovelace editor
@@ -93,6 +94,34 @@ covers:
     type: persiana
 ```
 
+`controls_type` is optional. When omitted, the card uses the original quick-button
+mode with the same appearance and behaviour as v2.1.0.
+
+### LAB entities mode
+
+```yaml
+type: custom:techathome-room-card
+name: Corridors
+icon: mdi:floor-plan
+entity: light.corridors
+temperature_entity: sensor.corridors_temperature
+background: /local/corridors.jpg
+navigation_path: corridors
+
+controls_type: entities
+controls:
+  - light.table_lamp
+  - light.entrance
+  - switch.accent_light
+  - input_boolean.night_mode
+```
+
+Entities mode embeds Home Assistant's native `entities` card with `state_color: true`,
+`show_header_toggle: false`, and the compact styling used by the original manual
+Tech@Home configuration. It displays up to four `light`, `switch`, or
+`input_boolean` entries. The compact appearance requires `card-mod`, as did the
+original manual configuration. Covers and all room-card gestures remain available.
+
 ---
 
 ## Repository Structure
@@ -121,7 +150,7 @@ README.md
 
 ## Current Version
 
-**v2.1.0 Production**
+**v2.2.0-lab.6 Pre-release / LAB**
 
 ---
 

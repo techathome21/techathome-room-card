@@ -1,0 +1,21 @@
+type: custom:techathome-room-card
+name: CORREDORES
+icon: mdi:floor-plan
+entity: light.corredores
+temperature_entity: sensor.temperatura_corredores
+background: /local/images/corredores.jpg
+navigation_path: corredores
+
+# LAB v2.2.0-lab.6: shares the buttons-mode outer CSS and restores the original entities inset.
+# Omit this property to retain the original buttons mode.
+controls_type: entities
+
+controls:
+  - light.candeeiro
+  - light.luz_entrada
+  - switch.luz_presenca
+  - input_boolean.modo_noturno
+
+covers:
+  - entity: cover.persiana_corredor
+    type: persiana

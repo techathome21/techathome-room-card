@@ -140,6 +140,15 @@ The Room Card currently supports:
 
 User interaction is intentionally simple and predictable.
 
+The LAB branch adds two control renderers selected by `controls_type`:
+
+- `buttons` (default): the unchanged v2.1.0 quick-control renderer.
+- `entities`: a native Home Assistant `entities` card that reuses `controls` for up
+  to four supported entities and applies the original compact `card_mod` styling.
+
+Nested control clicks stop propagation before issuing their service call, so they
+cannot trigger the card-level navigation or double-tap action.
+
 Future interaction methods must remain compatible with existing dashboards.
 
 ---
