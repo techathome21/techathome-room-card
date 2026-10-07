@@ -7,6 +7,16 @@ The project follows Semantic Versioning (SemVer).
 
 ---
 
+## [v2.2.0-lab.4] - LAB Pre-release
+
+### Changed
+- Matched the original manual room-card layout when `controls_type: entities` is selected.
+- Restored the original entities-mode padding, four-column grid, `bottom right` background position, and `inset 0px 0px 100px 30px black` shadow.
+- Kept the native entities card and its original compact `card_mod` styling.
+- Limited these layout changes to entities mode so the buttons renderer remains unchanged.
+
+---
+
 ## [v2.2.0-lab.3] - LAB Pre-release
 
 ### Changed

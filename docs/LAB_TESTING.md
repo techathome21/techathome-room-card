@@ -1,14 +1,14 @@
 # LAB test plan: entities controls
 
 Target branch: `lab/entities-controls`  
-Candidate version: `2.2.0-lab.3`
+Candidate version: `2.2.0-lab.4`
 
 ## Install in LAB
 
 1. Copy `techathome-room-card.js` from the LAB branch to the LAB Home Assistant
    `/config/www/` directory.
 2. Register or update the Lovelace resource to use
-   `/local/techathome-room-card.js?v=2.2.0-lab.3` as a JavaScript module.
+   `/local/techathome-room-card.js?v=2.2.0-lab.4` as a JavaScript module.
 3. Reload the dashboard in a fresh browser tab. If the old source remains visible,
    clear only the LAB dashboard/app cache and reload.
 4. Add the configuration from `examples/entities-controls-lab.yaml`, replacing the

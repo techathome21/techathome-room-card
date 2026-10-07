@@ -121,6 +121,13 @@ test("LAB card uses the approved lighter room shadow", () => {
   assert.match(source, /inset 0px 0px 100px 50px rgba\(0,0,0,0\.52\),\s+rgba\(0,0,0,0\.35\) 0px 5px 15px;/);
 });
 
+test("entities mode preserves the original manual outer-card CSS", () => {
+  assert.match(source, /ha-card\.entities-mode \{\s+background-position: bottom right;\s+box-shadow:\s+inset 0px 0px 100px 30px black,/);
+  assert.match(source, /ha-card\.entities-mode \.content \{\s+padding: 15px 22px;/);
+  assert.match(source, /grid-template-columns: 1fr min-content min-content 1fr;/);
+  assert.match(source, /grid-template-rows: 1fr 1fr 1fr 6fr;/);
+});
+
 function createHass() {
   const calls = [];
   return {
@@ -165,6 +172,7 @@ test("missing controls_type renders exactly like explicit buttons mode", () => {
     explicit.shadowRoot.querySelector(".buttons").innerHTML
   );
   assert.equal(implicit.shadowRoot.querySelector(".buttons").classList.contains("entities"), false);
+  assert.equal(implicit.shadowRoot.querySelector("ha-card").classList.contains("entities-mode"), false);
 });
 
 test("entities mode embeds a native HA entities card with the manual styling contract", async () => {
@@ -184,6 +192,7 @@ test("entities mode embeds a native HA entities card with the manual styling con
   const entitiesCard = container.children[0];
 
   assert.equal(container.classList.contains("entities"), true);
+  assert.equal(card.shadowRoot.querySelector("ha-card").classList.contains("entities-mode"), true);
   assert.equal(entitiesCard.cardConfig.type, "entities");
   assert.equal(entitiesCard.cardConfig.state_color, true);
   assert.equal(entitiesCard.cardConfig.show_header_toggle, false);
