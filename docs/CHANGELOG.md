@@ -7,6 +7,21 @@ The project follows Semantic Versioning (SemVer).
 
 ---
 
+## [v2.2.0-lab.2] - LAB Pre-release
+
+### Changed
+- Replaced the custom entities renderer with Home Assistant's native `entities` card.
+- Matched the compact `card_mod` styling from the original manual configuration.
+- Native entity rows now retain their standard Home Assistant interactions.
+- Entity-card clicks are isolated from room navigation and double-tap handling.
+- `controls` accepts entity IDs and native entity-row objects in entities mode.
+
+### Compatibility
+- The `buttons` renderer remains unchanged and is still the default.
+- Covers, background navigation, and room double-tap remain available.
+
+---
+
 ## [v2.2.0-lab.1] - LAB Pre-release
 
 ### Added

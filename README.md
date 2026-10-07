@@ -8,7 +8,7 @@
 
 ![Status](https://img.shields.io/badge/status-LAB-orange)
 
-![Version](https://img.shields.io/badge/version-v2.2.0--lab.1-orange)
+![Version](https://img.shields.io/badge/version-v2.2.0--lab.2-orange)
 
 ![Home Assistant](https://img.shields.io/badge/Home%20Assistant-2026+-41BDF5)
 
@@ -116,9 +116,11 @@ controls:
   - input_boolean.night_mode
 ```
 
-Entities mode displays up to four `light`, `switch`, or `input_boolean` rows with
-the Home Assistant icon, `friendly_name`, current state, and a toggle. Covers and
-all room-card gestures remain available.
+Entities mode embeds Home Assistant's native `entities` card with `state_color: true`,
+`show_header_toggle: false`, and the compact styling used by the original manual
+Tech@Home configuration. It displays up to four `light`, `switch`, or
+`input_boolean` entries. The compact appearance requires `card-mod`, as did the
+original manual configuration. Covers and all room-card gestures remain available.
 
 ---
 
@@ -148,7 +150,7 @@ README.md
 
 ## Current Version
 
-**v2.2.0-lab.1 Pre-release / LAB**
+**v2.2.0-lab.2 Pre-release / LAB**
 
 ---
 

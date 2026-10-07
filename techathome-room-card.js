@@ -1,6 +1,6 @@
 /*
  * Tech@Home Room Card
- * Version: 2.2.0-lab.1
+ * Version: 2.2.0-lab.2
  * Status : LAB Pre-release
  *
  * Notes:
@@ -10,7 +10,7 @@
  * - Big icon active state is local to each card instance.
  * - Single tap navigates to the configured room path.
  * - Double tap turns off the configured room lighting entity.
- * - controls_type selects the classic buttons or the LAB entities panel.
+ * - controls_type selects the classic buttons or a native HA entities card.
  */
 
 class TechAtHomeRoomCard extends HTMLElement {
@@ -22,6 +22,10 @@ class TechAtHomeRoomCard extends HTMLElement {
     this._isPreview = false;
     this._tapTimer = null;
     this._tapDelay = 260;
+    this._entitiesCard = null;
+    this._entitiesCardKey = null;
+    this._entitiesRenderId = 0;
+    this._entitiesCardPromise = null;
     this.attachShadow({ mode: "open" });
   }
 
@@ -224,96 +228,21 @@ class TechAtHomeRoomCard extends HTMLElement {
         }
 
         .buttons.entities {
-          width: min(194px, 52vw);
+          width: min(210px, 56vw);
           height: auto;
-          padding: 8px;
-          gap: 4px;
+          padding: 0;
+          gap: 0;
           align-self: center;
           box-sizing: border-box;
-          border: 1px solid rgba(255,255,255,0.18);
-          border-radius: 16px;
-          background: rgba(0,0,0,0.58);
-          box-shadow: 0 4px 18px rgba(0,0,0,0.35);
-          backdrop-filter: blur(8px);
-          -webkit-backdrop-filter: blur(8px);
+          border: 0;
+          background: transparent;
+          box-shadow: none;
           transform: none;
         }
 
-        .entity-control {
+        .buttons.entities > * {
           width: 100%;
           min-width: 0;
-          height: 38px;
-          padding: 0 7px;
-          border: 0;
-          border-radius: 10px;
-          background: transparent;
-          color: white;
-          display: grid;
-          grid-template-columns: 24px minmax(0, 1fr) 34px;
-          align-items: center;
-          gap: 7px;
-          text-align: left;
-          cursor: pointer;
-        }
-
-        .entity-control:hover {
-          background: rgba(255,255,255,0.09);
-        }
-
-        .entity-control:focus-visible {
-          outline: 2px solid rgba(255,215,0,0.95);
-          outline-offset: -2px;
-        }
-
-        .entity-control > ha-icon {
-          width: 21px;
-          height: 21px;
-          --mdc-icon-size: 21px;
-          color: rgba(255,255,255,0.9);
-        }
-
-        .entity-control.on > ha-icon {
-          color: rgba(255,215,0,0.95);
-        }
-
-        .entity-name {
-          min-width: 0;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-          font-size: 13px;
-          line-height: 1.1;
-          text-shadow: 1px 1px 1px black;
-        }
-
-        .entity-toggle {
-          position: relative;
-          width: 32px;
-          height: 18px;
-          border-radius: 9px;
-          background: rgba(255,255,255,0.28);
-          transition: background 160ms ease;
-        }
-
-        .entity-toggle::after {
-          content: "";
-          position: absolute;
-          width: 14px;
-          height: 14px;
-          top: 2px;
-          left: 2px;
-          border-radius: 50%;
-          background: white;
-          box-shadow: 0 1px 4px rgba(0,0,0,0.45);
-          transition: transform 160ms ease;
-        }
-
-        .entity-control.on .entity-toggle {
-          background: rgba(255,200,0,0.92);
-        }
-
-        .entity-control.on .entity-toggle::after {
-          transform: translateX(14px);
         }
 
         .control {
@@ -409,6 +338,13 @@ class TechAtHomeRoomCard extends HTMLElement {
     });
 
     this.shadowRoot.querySelector(".buttons").addEventListener("click", (e) => {
+      const controlsType = this.config?.controls_type === "entities" ? "entities" : "buttons";
+
+      if (controlsType === "entities") {
+        e.stopPropagation();
+        return;
+      }
+
       const btn = e.target.closest("button[data-entity]");
       if (!btn) return;
 
@@ -476,9 +412,13 @@ class TechAtHomeRoomCard extends HTMLElement {
     controlsContainer.classList.toggle("entities", controlsType === "entities");
 
     if (controlsType === "entities") {
-      this._updateEntityControls(config, hass, controlsContainer);
+      this._updateEntitiesCard(config, hass, controlsContainer);
       return;
     }
+
+    this._entitiesRenderId += 1;
+    this._entitiesCard = null;
+    this._entitiesCardKey = null;
 
     const previewIcons = [
       "mdi:ceiling-light",
@@ -504,42 +444,76 @@ class TechAtHomeRoomCard extends HTMLElement {
     controlsContainer.innerHTML = controls;
   }
 
-  _updateEntityControls(config, hass, controlsContainer) {
+  _updateEntitiesCard(config, hass, controlsContainer) {
     const supportedDomains = new Set(["light", "switch", "input_boolean"]);
-    const fallbackIcons = {
-      light: "mdi:lightbulb",
-      switch: "mdi:toggle-switch",
-      input_boolean: "mdi:toggle-switch-outline"
-    };
-
-    const controls = (config.controls || [])
-      .filter(entityId => supportedDomains.has(this._domain(entityId)))
-      .slice(0, 4)
-      .map((entityId, index) => {
-        const stateObj = hass?.states?.[entityId];
-        const domain = this._domain(entityId);
-        const isOn = stateObj ? this._isOn(stateObj) : this._isPreview && index < 2;
-        const icon = stateObj?.attributes?.icon || fallbackIcons[domain];
-        const friendlyName = stateObj?.attributes?.friendly_name || entityId;
-
-        return `
-          <button
-            class="entity-control ${isOn ? "on" : ""}"
-            data-entity="${this._escapeHtml(entityId)}"
-            title="${this._escapeHtml(friendlyName)}"
-            aria-label="${this._escapeHtml(friendlyName)}"
-            role="switch"
-            aria-checked="${isOn ? "true" : "false"}"
-          >
-            <ha-icon icon="${this._escapeHtml(icon)}"></ha-icon>
-            <span class="entity-name">${this._escapeHtml(friendlyName)}</span>
-            <span class="entity-toggle" aria-hidden="true"></span>
-          </button>
-        `;
+    const entities = (config.controls || [])
+      .filter(control => {
+        const entityId = typeof control === "string" ? control : control?.entity;
+        return supportedDomains.has(this._domain(entityId));
       })
-      .join("");
+      .slice(0, 4);
 
-    controlsContainer.innerHTML = controls;
+    const cardConfig = {
+      type: "entities",
+      entities,
+      state_color: true,
+      show_header_toggle: false,
+      card_mod: {
+        style: {
+          ".": `
+            ha-card div#states div {
+              margin-top: -10px !important;
+              margin-bottom: 10px !important;
+              margin-left: -10px !important;
+              height: 35px;
+            }
+            ha-card {
+              font-size: 12px;
+              font-weight: 300;
+              text-align: right;
+              margin: -15px;
+              --mdc-icon-size: 40%;
+              text-shadow: 1px 1px 1px black;
+            }
+            #states {
+              padding-left: 10px;
+              padding-right: 10px;
+              padding-top: 10px;
+              padding-bottom: 0;
+            }
+          `
+        }
+      }
+    };
+    const cardKey = JSON.stringify(cardConfig);
+
+    if (this._entitiesCard && this._entitiesCardKey === cardKey) {
+      this._entitiesCard.hass = hass;
+      return;
+    }
+
+    const renderId = ++this._entitiesRenderId;
+    this._entitiesCard = null;
+    this._entitiesCardKey = null;
+    controlsContainer.replaceChildren();
+
+    this._entitiesCardPromise = Promise.resolve()
+      .then(() => window.loadCardHelpers())
+      .then(helpers => helpers.createCardElement(cardConfig))
+      .then(entitiesCard => {
+        if (renderId !== this._entitiesRenderId || this.config?.controls_type !== "entities") return;
+
+        entitiesCard.hass = this._hass;
+        controlsContainer.replaceChildren(entitiesCard);
+        this._entitiesCard = entitiesCard;
+        this._entitiesCardKey = cardKey;
+      })
+      .catch(error => {
+        if (renderId !== this._entitiesRenderId) return;
+
+        controlsContainer.textContent = "Não foi possível carregar o cartão entities";
+        console.error("Tech@Home Room Card: failed to create entities card", error);
+      });
   }
 
   _updateCovers(config, hass) {

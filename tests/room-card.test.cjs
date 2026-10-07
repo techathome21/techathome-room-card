@@ -28,6 +28,7 @@ class FakeElement {
     this.listeners = {};
     this.style = {};
     this.textContent = "";
+    this.children = [];
   }
 
   addEventListener(type, listener) {
@@ -36,6 +37,11 @@ class FakeElement {
 
   setAttribute(name, value) {
     this.attributes[name] = value;
+  }
+
+  replaceChildren(...children) {
+    this.children = children;
+    this.innerHTML = "";
   }
 }
 
@@ -70,6 +76,7 @@ class FakeHTMLElement extends FakeElement {
 }
 
 const registry = new Map();
+const createdCards = [];
 global.HTMLElement = FakeHTMLElement;
 global.customElements = {
   define(name, constructor) {
@@ -83,6 +90,14 @@ global.document = { createElement: () => new FakeElement() };
 global.window = {
   customCards: [],
   dispatched: [],
+  loadCardHelpers: async () => ({
+    createCardElement(config) {
+      const card = new FakeElement();
+      card.cardConfig = config;
+      createdCards.push(card);
+      return card;
+    }
+  }),
   history: {
     pushed: [],
     pushState(_state, _title, url) {
@@ -145,49 +160,64 @@ test("missing controls_type renders exactly like explicit buttons mode", () => {
   assert.equal(implicit.shadowRoot.querySelector(".buttons").classList.contains("entities"), false);
 });
 
-test("entities mode filters domains, limits rows to four, and uses HA display data", () => {
+test("entities mode embeds a native HA entities card with the manual styling contract", async () => {
   const { card } = createCard({
     controls_type: "entities",
     controls: [
       "button.unsupported",
       "light.one",
-      "switch.two",
+      { entity: "switch.two", name: "Custom switch name" },
       "input_boolean.three",
       "light.four",
       "light.five"
     ]
   });
   const container = card.shadowRoot.querySelector(".buttons");
+  await card._entitiesCardPromise;
+  const entitiesCard = container.children[0];
 
   assert.equal(container.classList.contains("entities"), true);
-  assert.equal((container.innerHTML.match(/class="entity-control/g) || []).length, 4);
-  assert.match(container.innerHTML, /One/);
-  assert.match(container.innerHTML, /mdi:ceiling-light/);
-  assert.match(container.innerHTML, /role="switch"/);
-  assert.match(container.innerHTML, /aria-checked="true"/);
-  assert.doesNotMatch(container.innerHTML, /button\.unsupported/);
-  assert.doesNotMatch(container.innerHTML, /Five/);
+  assert.equal(entitiesCard.cardConfig.type, "entities");
+  assert.equal(entitiesCard.cardConfig.state_color, true);
+  assert.equal(entitiesCard.cardConfig.show_header_toggle, false);
+  assert.deepEqual(entitiesCard.cardConfig.entities, [
+    "light.one",
+    { entity: "switch.two", name: "Custom switch name" },
+    "input_boolean.three",
+    "light.four"
+  ]);
+  assert.match(entitiesCard.cardConfig.card_mod.style["."], /margin-top: -10px/);
+  assert.match(entitiesCard.cardConfig.card_mod.style["."], /--mdc-icon-size: 40%/);
+  assert.equal(entitiesCard.hass.states["light.one"].state, "on");
 });
 
-test("entity toggles stop propagation and emit exactly one mock service intent", () => {
+test("events from the native entities card stop before reaching room-card gestures", async () => {
   const { card, hass } = createCard({ controls_type: "entities" });
   const controlContainer = card.shadowRoot.querySelector(".buttons");
+  await card._entitiesCardPromise;
   let stopped = false;
-  const entityButton = new FakeElement();
-  entityButton.dataset.entity = "switch.two";
 
   controlContainer.listeners.click({
-    target: { closest: () => entityButton },
+    target: controlContainer.children[0],
     stopPropagation: () => { stopped = true; }
   });
 
   assert.equal(stopped, true);
-  assert.deepEqual(hass.calls, [{
-    domain: "homeassistant",
-    service: "toggle",
-    data: { entity_id: "switch.two" }
-  }]);
+  assert.deepEqual(hass.calls, []);
   assert.equal(card._tapTimer, null);
+});
+
+test("HA state updates reuse the mounted native entities card", async () => {
+  const { card } = createCard({ controls_type: "entities" });
+  await card._entitiesCardPromise;
+  const mountedCard = card._entitiesCard;
+  const updatedHass = createHass();
+  updatedHass.states["light.one"].state = "off";
+
+  card.hass = updatedHass;
+
+  assert.equal(card._entitiesCard, mountedCard);
+  assert.equal(mountedCard.hass, updatedHass);
 });
 
 test("classic momentary buttons retain the button.press service contract", () => {
