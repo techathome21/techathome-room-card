@@ -127,6 +127,11 @@ test("both control types share one outer-card CSS contract", () => {
   assert.match(source, /padding: 22px 8px 22px 22px;/);
 });
 
+test("entities panel preserves the original visible right inset", () => {
+  assert.match(source, /\.buttons\.entities \{[\s\S]*?margin-right: 14px;/);
+  assert.match(source, /ha-card \{[\s\S]*?margin: -15px;/);
+});
+
 function createHass() {
   const calls = [];
   return {

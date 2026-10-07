@@ -7,6 +7,17 @@ The project follows Semantic Versioning (SemVer).
 
 ---
 
+## [v2.2.0-lab.6] - LAB Pre-release
+
+### Fixed
+- Added a 14 px right offset to the entities controls container.
+- This compensates for the native entities card's original `margin: -15px` and restores the visible right inset from the manual card.
+
+### Preserved
+- Outer-card title, background, shadow, padding, and grid remain identical to buttons mode and Production.
+
+---
+
 ## [v2.2.0-lab.5] - LAB Pre-release
 
 ### Fixed
