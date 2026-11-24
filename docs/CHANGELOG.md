@@ -7,6 +7,14 @@ The project follows Semantic Versioning (SemVer).
 
 ---
 
+## [v2.2.1] - 2026-11-24 - Production
+
+### Fixed
+- Fixed subview back navigation history by recording the originating URL and dispatching the Home Assistant location change event with `replace: false`.
+- Preserved both controls modes and existing configuration.
+
+---
+
 ## [v2.2.0] - 2026-10-07 - Production
 
 ### Added

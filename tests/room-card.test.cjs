@@ -88,7 +88,14 @@ global.customElements = {
   }
 };
 global.document = { createElement: () => new FakeElement() };
+global.CustomEvent = class {
+  constructor(type, options) {
+    this.type = type;
+    this.detail = options?.detail;
+  }
+};
 global.window = {
+  location: { pathname: "/dashboard/piso-1", search: "?mode=1", hash: "#room" },
   customCards: [],
   dispatched: [],
   loadCardHelpers: async () => ({
@@ -101,12 +108,14 @@ global.window = {
   }),
   history: {
     pushed: [],
-    pushState(_state, _title, url) {
+    pushState(state, _title, url) {
+      this.state = state;
       this.pushed.push(url);
     }
   },
   dispatchEvent(event) {
     this.dispatched.push(event.type);
+    this.lastEvent = event;
   }
 };
 
@@ -117,8 +126,8 @@ require(sourcePath);
 const RoomCard = registry.get("techathome-room-card");
 const RoomCardEditor = registry.get("techathome-room-card-editor");
 
-test("source is identified as the v2.2.0 production release", () => {
-  assert.match(source, /Version: 2\.2\.0\s+\* Status : Production/);
+test("source is identified as the v2.2.1 production release", () => {
+  assert.match(source, /Version: 2\.2\.1\s+\* Status : Production/);
 });
 
 test("production card uses the approved lighter room shadow", () => {
@@ -269,6 +278,9 @@ test("background single tap navigates and double tap turns off the room entity",
   card.shadowRoot.querySelector("ha-card").listeners.click();
   await new Promise(resolve => setTimeout(resolve, 20));
   assert.deepEqual(window.history.pushed, ["/room"]);
+  assert.deepEqual(window.history.state, { from: "/dashboard/piso-1?mode=1#room" });
+  assert.equal(window.lastEvent.type, "location-changed");
+  assert.deepEqual(window.lastEvent.detail, { replace: false });
 
   window.history.pushed.length = 0;
   card.shadowRoot.querySelector("ha-card").listeners.click();

@@ -1,6 +1,6 @@
 /*
  * Tech@Home Room Card
- * Version: 2.2.0
+ * Version: 2.2.1
  * Status : Production
  *
  * Notes:
@@ -89,8 +89,22 @@ class TechAtHomeRoomCard extends HTMLElement {
     if (this._isPreview) return;
     if (!config.navigation_path) return;
 
-    window.history.pushState(null, "", config.navigation_path);
-    window.dispatchEvent(new Event("location-changed"));
+    const currentPath =
+      window.location.pathname +
+      window.location.search +
+      window.location.hash;
+
+    window.history.pushState(
+      { from: currentPath },
+      "",
+      config.navigation_path
+    );
+
+    window.dispatchEvent(
+      new CustomEvent("location-changed", {
+        detail: { replace: false }
+      })
+    );
   }
 
   _turnOffRoomEntity() {
