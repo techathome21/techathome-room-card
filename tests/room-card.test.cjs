@@ -126,8 +126,8 @@ require(sourcePath);
 const RoomCard = registry.get("techathome-room-card");
 const RoomCardEditor = registry.get("techathome-room-card-editor");
 
-test("source is identified as the v2.2.1 production release", () => {
-  assert.match(source, /Version: 2\.2\.1\s+\* Status : Production/);
+test("source is identified as the v2.2.2 production release", () => {
+  assert.match(source, /Version: 2\.2\.2\s+\* Status : Production/);
 });
 
 test("production card uses the approved lighter room shadow", () => {

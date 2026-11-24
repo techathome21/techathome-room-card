@@ -1,6 +1,6 @@
 /*
  * Tech@Home Room Card
- * Version: 2.2.1
+ * Version: 2.2.2
  * Status : Production
  *
  * Notes:

@@ -7,6 +7,17 @@ The project follows Semantic Versioning (SemVer).
 
 ---
 
+## [v2.2.2] - 2026-11-24 - Marketplace packaging
+
+### Added
+- Added the Marketplace/HACS repository manifest and installation/migration documentation.
+- Added distribution license terms.
+
+### Preserved
+- Room Card functionality and navigation fix from v2.2.1 remain unchanged.
+
+---
+
 ## [v2.2.1] - 2026-11-24 - Production
 
 ### Fixed
